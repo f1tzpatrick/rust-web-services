@@ -18,22 +18,7 @@ async fn get_product(id: Id, list: &State<ProductList>, app_config: &State<AppCo
         let mut product_data = data::load_products_from_json_file(products_file);
         list.append(&mut product_data);
     }
-
-	for product in list.to_vec() {
-		if product.product_id == id {
-			return Some(Json(product));
-		}
-	}
-	// TODO: Handle Not Found
-	let product = Product {
-		product_id: 0,
-		manufacturer: String::from("Hello World industries"),
-		sku: String::from("HelloWorld1"),
-		upc: String::from("0000000000001"),
-		price_per_unit: String::from("0.00"),
-		quantity_on_hand: 0,
-		product_name: String::from("Hello World")
-	};
+	let product = data::get_product(id, &list)?;
 	Some(Json(product))
 }
 

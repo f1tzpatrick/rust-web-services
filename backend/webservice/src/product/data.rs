@@ -4,7 +4,7 @@ use std::io::BufReader;
 
 use rocket::serde::json::from_str;
 
-use crate::product::product::Product;
+use crate::product::product::{Product, Id};
 
 pub fn load_products_from_json_file(path: &String) -> Vec<Product> {
     let product_data = read_products_file(path);
@@ -21,4 +21,13 @@ fn read_products_file(path: &String) -> String {
         Err(_err) => 0
     };
     product_data
+}
+
+pub fn get_product(id: Id, products: &Vec<Product>) -> Option<Product> {
+    for product in products {
+        if product.product_id == id {
+            return Some(product.clone())
+        }
+    }
+    None
 }
