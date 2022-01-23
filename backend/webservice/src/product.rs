@@ -9,6 +9,8 @@ use rocket::tokio::sync::Mutex;
 use rocket::serde::json::{Json, Value, json, from_str};
 use rocket::serde::{Deserialize, Serialize};
 
+use crate::AppConfig;
+
 type Id = usize;
 type ProductList = Mutex<Vec<Product>>;
 type Products<'r> = &'r State<ProductList>;
@@ -42,8 +44,9 @@ async fn get_product(id: Id, list: Products<'_>) -> Option<Json<Product>> {
 }
 
 #[get("/")]
-async fn list_products(list: Products<'_>) -> String{
-	let file = File::open("products.json")
+async fn list_products(list: Products<'_>, app_config: &State<AppConfig>) -> String {
+	let products_file = &app_config.products_file;
+	let file = File::open(products_file)
 		.expect("Could not open file");
 	let mut buffered_reader = BufReader::new(file);
 	let mut product_data = String::new();
@@ -64,4 +67,3 @@ pub fn stage() -> rocket::fairing::AdHoc {
 			.manage(ProductList::new(vec![]))
 	})
 }
-

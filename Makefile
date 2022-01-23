@@ -6,7 +6,8 @@ backend-dependencies:
 		cd backend/webservice; \
 		cargo build
 
-run-backend:
+run-backend: backend-dependencies
 	@set -e; \
-		cd backend/webservice; \
-		cargo run
+		ROCKET_CONFIG=./backend/webservice/Rocket.toml \
+		ROCKET_PRODUCTS_FILE=./products.json \
+		./backend/webservice/target/debug/webservice
