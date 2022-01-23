@@ -1,10 +1,9 @@
 #[macro_use] extern crate rocket;
 
-use rocket::{State, Config};
+mod product;
+
 use rocket::fairing::AdHoc;
 use rocket::serde::Deserialize;
-
-mod product;
 
 type ProductFilePath = String;
 
@@ -18,6 +17,6 @@ struct AppConfig {
 fn rocket() -> _ {
     println!("Hello, world!");
     rocket::build()
-        .attach(product::stage())
+        .attach(product::service::stage())
         .attach(AdHoc::config::<AppConfig>())
 }
