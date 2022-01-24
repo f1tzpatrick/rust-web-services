@@ -4,7 +4,11 @@ use std::io::BufReader;
 
 use rocket::serde::json::from_str;
 
+
+// type Result<T, E = Debug<diesel::result::Error>> = std::result::Result<T, E>;
+
 use crate::product::product::{Product, Id};
+// use crate::product::schema;
 
 pub fn load_products_from_json_file(path: &String) -> Vec<Product> {
     let product_data = read_products_file(path);
@@ -31,3 +35,14 @@ pub fn get_product(id: Id, products: &Vec<Product>) -> Option<Product> {
     }
     None
 }
+
+// pub async fn get_all_products(conn: ProductDbConn) -> Vec<Product> {
+//     // let list: Vec<Product> = conn.run(move |conn| {
+//     //     schema::products::table
+//     //         .load(conn)
+//     // }).await;
+    
+//     let list = schema::products::table.select().load::<Product>(conn).unwrap();
+  
+//     Ok(list)
+// }

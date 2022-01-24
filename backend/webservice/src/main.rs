@@ -1,11 +1,11 @@
 #[macro_use] extern crate rocket;
-
-mod product;
+#[macro_use] extern crate diesel;
 
 use rocket::fairing::AdHoc;
 use rocket::serde::Deserialize;
-use rocket_sync_db_pools::{diesel, database};
+use rocket_sync_db_pools::database;
 
+mod product;
 
 type ProductFilePath = String;
 
@@ -16,7 +16,7 @@ struct AppConfig {
 }
 
 #[database("productdb")]
-struct ProductDbConn(diesel::MysqlConnection);
+struct DbConn(diesel::MysqlConnection);
 
 #[launch]
 fn rocket() -> _ {
@@ -24,5 +24,5 @@ fn rocket() -> _ {
     rocket::build()
         .attach(product::service::stage())
         .attach(AdHoc::config::<AppConfig>())
-        .attach(ProductDbConn::fairing())
+        .attach(DbConn::fairing())
 }

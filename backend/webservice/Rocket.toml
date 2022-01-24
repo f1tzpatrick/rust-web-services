@@ -6,4 +6,4 @@ port = 5000
 products_file = "../../products.json"
 
 [debug.databases.productdb]
-url = "mysql://root:@localhost:3306/inventorydb"
+url = "mysql://root:@localhost:3306/rust-inv"
