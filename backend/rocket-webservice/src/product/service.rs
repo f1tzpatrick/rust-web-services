@@ -35,6 +35,9 @@ async fn list_products(list: &State<ProductList>, app_config: &State<AppConfig>)
     Json(list.to_vec())
 }
 
+#[post("/")]
+fn create_product() -> 
+
 pub fn stage() -> rocket::fairing::AdHoc {
 	rocket::fairing::AdHoc::on_ignite("JSON", |rocket| async {
 		rocket.mount("/products", routes![list_products, get_product])

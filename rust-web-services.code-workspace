@@ -2,12 +2,23 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "../rust-web-development/code"
+		},
+		{
+			"path": "../warp/examples"
+		},
+		{
+			"path": "../Rocket/examples"
 		}
 	],
 	"settings": {
 		"workbench.colorTheme": "Goldfish (rainglow)",
 		"rust-analyzer.linkedProjects": [
-			"./backend/webservice/Cargo.toml"
-		]
+			"./backend/rocket-webservice/Cargo.toml",
+			"./backend/warp-webservice/Cargo.toml"
+		],
+		"rust-analyzer.completion.autoimport.enable": true
 	}
 }
