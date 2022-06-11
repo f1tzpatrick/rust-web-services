@@ -25,3 +25,7 @@ just start-function
 ```
 
 Requests in `requests.http` are compatibile with the [VSCode REST Client extension](https://marketplace.visualstudio.com/items?itemName=humao.rest-client). You can use them against the API.
+
+## Build for Azure
+
+Install the musl build tools `sudo apt install musl-tools`, then run `just build-function`.

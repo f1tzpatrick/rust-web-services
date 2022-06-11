@@ -40,3 +40,6 @@ configure-function:
 
 start-function: configure-function
     func start --port {{ FUNCTIONS_CUSTOMHANDLER_PORT }} --custom
+
+build-function:
+    cargo build --manifest-path api/Cargo.toml --bin api --release --target=x86_64-unknown-linux-musl
