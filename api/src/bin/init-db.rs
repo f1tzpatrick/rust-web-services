@@ -30,12 +30,12 @@ fn read_products_file(path: String) -> String {
 async fn main() {
     let products_file = env::var("PRODUCT_FILE").expect("Define PRODUCT_FILE");
     let products = load_products_from_json_file(products_file);
-
-    println!("Found {:?} products", products.len());
+    println!("Found {:?} products in file", products.len());
 
     for product in products.iter() {
         let _ = insert_or_overwrite_product(product).await;
     }
 
-    let _ = get_product(190).await;
+    let products = list_products().await.unwrap_or(vec![]);
+    println!("Read back {:?} products", products.len());
 }
