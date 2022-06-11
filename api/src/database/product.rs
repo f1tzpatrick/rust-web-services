@@ -1,11 +1,13 @@
 use futures::stream::{StreamExt, TryStreamExt};
 
-use anyhow::{Context, Result};
+use anyhow::Result;
+
+use mongodb::error::Error;
 
 use mongodb::{
     bson::doc,
     options::FindOptions,
-    results::{InsertOneResult, UpdateResult},
+    results::{DeleteResult, InsertOneResult, UpdateResult},
     Client, Collection,
 };
 
@@ -56,42 +58,51 @@ pub async fn list_products(client: Option<Client>) -> Result<Vec<Product>> {
     Ok(products)
 }
 
-pub async fn insert_product(client: Option<Client>, product: &Product) -> Result<InsertOneResult> {
+pub async fn insert_product(
+    client: Option<Client>,
+    product: &Product,
+) -> Result<InsertOneResult, Error> {
     let collection = get_product_collection(client).await;
-    let result = collection
-        .insert_one(product, None)
-        .await
-        .with_context(|| format!("Failed to insert product {:?}", product))?;
+    let result = collection.insert_one(product, None).await;
 
-    Ok(result)
+    result
 }
 
-pub async fn replace_product(client: Option<Client>, product: &Product) -> Result<UpdateResult> {
+pub async fn replace_product(
+    client: Option<Client>,
+    product: &Product,
+) -> Result<UpdateResult, Error> {
     let collection = get_product_collection(client).await;
     let filter = doc! { "productId": product.product_id };
     let options = mongodb::options::ReplaceOptions::builder()
         .upsert(Some(true))
         .build();
-    let result = collection
-        .replace_one(filter, product, options)
-        .await
-        .with_context(|| format!("Failed to replace product {:?}", product))?;
+    let result = collection.replace_one(filter, product, options).await;
 
-    Ok(result)
+    result
 }
 
+// TODO: Do a merge update instead of overwrite - not working as intended
 pub async fn insert_or_overwrite_product(
     client: Option<Client>,
     product: &Product,
-) -> Result<(), ()> {
+) -> Result<(), Error> {
     match get_product(client.clone(), product.product_id).await {
         Some(product) => match replace_product(client.clone(), &product).await {
             Ok(_) => Ok(()),
-            Err(_) => Err(()),
+            Err(e) => Err(e),
         },
         None => match insert_product(client.clone(), &product).await {
             Ok(_) => Ok(()),
-            Err(_) => Err(()),
+            Err(e) => Err(e),
         },
     }
+}
+
+pub async fn delete_product(client: Option<Client>, product_id: Id) -> Result<DeleteResult, Error> {
+    let collection = get_product_collection(client).await;
+    let filter = doc! { "productId": product_id };
+    let options = mongodb::options::DeleteOptions::builder().build();
+    let result = collection.delete_one(filter, options).await;
+    result
 }

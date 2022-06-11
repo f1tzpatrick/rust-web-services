@@ -44,7 +44,18 @@ async fn main() {
         .and(warp::body::json())
         .and_then(products::create_or_update_product);
 
-    let products_api = list_products.or(get_product).or(create_product);
+    let delete_product = warp::delete()
+        .and(warp::path(api_base))
+        .and(warp::path("products"))
+        .and(warp::path::param::<u32>())
+        .and(warp::path::end())
+        .and(client_filter.clone())
+        .and_then(products::delete_product);
+
+    let products_api = list_products
+        .or(get_product)
+        .or(create_product)
+        .or(delete_product);
 
     let routes = products_api.with(cors);
 
