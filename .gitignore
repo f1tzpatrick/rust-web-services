@@ -1,4 +1,6 @@
 **/target/
 **/Cargo.lock
 
+infra/local-db/database-data
+
 .vscode

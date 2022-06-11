@@ -1,9 +1,0 @@
-[default]
-port = 5000
-
-# Path to test data
-# Can be overrided with ROCKET_PRODUCTS_FILE
-products_file = "../../products.json"
-
-[debug.databases.productdb]
-url = "mysql://root:@localhost:3306/inventorydb"

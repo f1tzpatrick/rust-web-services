@@ -4,21 +4,15 @@
 			"path": "."
 		},
 		{
-			"path": "../rust-web-development/code"
-		},
-		{
-			"path": "../warp/examples"
-		},
-		{
-			"path": "../Rocket/examples"
+			"path": "../go-web-services"
 		}
 	],
 	"settings": {
 		"workbench.colorTheme": "Goldfish (rainglow)",
 		"rust-analyzer.linkedProjects": [
-			"./backend/rocket-webservice/Cargo.toml",
-			"./backend/warp-webservice/Cargo.toml"
+			"./api/Cargo.toml"
 		],
-		"rust-analyzer.completion.autoimport.enable": true
+		"rust-analyzer.completion.autoimport.enable": true,
+		"editor.inlayHints.enabled": "off"
 	}
 }
