@@ -1,31 +1,16 @@
-OPTIONS http://localhost:5000/api/products
+OPTIONS http://localhost:14142/api/products
 
 ###
 
-GET http://localhost:5000/api/products
+GET http://localhost:14142/api/products
 
 ###
 
-GET http://localhost:5000/api/products/5
+GET http://localhost:14142/api/products/11
 
 ###
 
-PUT http://localhost:5000/api/products/1
-content-type: application/json
-
-{
-    "productId": 1,
-    "manufacturer": "Johns-Jenkins",
-    "sku": "p5z343vdS",
-    "upc": "939581000000",
-    "pricePerUnit": "497.45",
-    "quantityOnHand": 0,
-    "productName": "sticky note"
-}
-
-###
-
-POST http://localhost:5000/api/products
+POST http://localhost:14142/api/products
 content-type: application/json
 
 {
@@ -40,9 +25,9 @@ content-type: application/json
 
 ###
 
-GET http://localhost:5000/api/products/191
+GET http://localhost:14142/api/products/191
 
 ###
 
-DELETE http://localhost:5000/api/products/191
+DELETE http://localhost:14142/api/products/191
 

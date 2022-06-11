@@ -1,3 +1,5 @@
+use std::env;
+
 use warp::{http::Method, Filter};
 
 mod database;
@@ -59,5 +61,11 @@ async fn main() {
 
     let routes = products_api.with(cors);
 
-    warp::serve(routes).run(([127, 0, 0, 1], 5000)).await;
+    let port_key = "FUNCTIONS_CUSTOMHANDLER_PORT";
+    let port: u16 = match env::var(port_key) {
+        Ok(val) => val.parse().expect("Custom Handler port is not a number!"),
+        Err(_) => 14142,
+    };
+
+    warp::serve(routes).run(([127, 0, 0, 1], port)).await;
 }
