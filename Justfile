@@ -19,6 +19,9 @@ stop-db:
 check-db:
     cargo run --manifest-path ./api/Cargo.toml --bin check-db
 
+init-db:
+    cargo run --manifest-path api/Cargo.toml --bin init-db
+
 build-api:
     cargo build --manifest-path ./api/Cargo.toml
 
