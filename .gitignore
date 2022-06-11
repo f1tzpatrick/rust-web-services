@@ -1,4 +1,15 @@
 **/target/
 **/Cargo.lock
+*.log
 
-.vscode
+infra/local-db/database-data
+
+# Azure Functions artifacts
+bin
+obj
+appsettings.json
+
+# Azurite artifacts
+__blobstorage__
+__queuestorage__
+__azurite_db*__.json

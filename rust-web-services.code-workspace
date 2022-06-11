@@ -2,12 +2,17 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "../go-web-services"
 		}
 	],
 	"settings": {
 		"workbench.colorTheme": "Goldfish (rainglow)",
 		"rust-analyzer.linkedProjects": [
-			"./backend/webservice/Cargo.toml"
-		]
+			"./api/Cargo.toml"
+		],
+		"rust-analyzer.completion.autoimport.enable": true,
+		"editor.inlayHints.enabled": "off"
 	}
 }
