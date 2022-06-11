@@ -1,16 +1,48 @@
-###
-
-GET http://localhost:5000/hello
+OPTIONS http://localhost:5000/api/products
 
 ###
 
-GET http://localhost:5000/products
+GET http://localhost:5000/api/products
 
 ###
 
-GET http://localhost:5000/products/1
+GET http://localhost:5000/api/products/5
 
 ###
 
-GET http://localhost:5000/products/1000
+PUT http://localhost:5000/api/products/1
+content-type: application/json
+
+{
+    "productId": 1,
+    "manufacturer": "Johns-Jenkins",
+    "sku": "p5z343vdS",
+    "upc": "939581000000",
+    "pricePerUnit": "497.45",
+    "quantityOnHand": 0,
+    "productName": "sticky note"
+}
+
+###
+
+POST http://localhost:5000/api/products
+content-type: application/json
+
+{
+    "productId": 191,
+    "manufacturer": "Hello World Industries",
+    "sku": "1bd6a2c9-ef6b-51a7-8932-1bc5b0dcee6c",
+    "upc": "5674127452",
+    "pricePerUnit": "249.99",
+    "quantityOnHand": 1,
+    "productName": "Fancy Keyboard"
+}
+
+###
+
+GET http://localhost:5000/api/products/191
+
+###
+
+DELETE http://localhost:5000/api/products/191
 

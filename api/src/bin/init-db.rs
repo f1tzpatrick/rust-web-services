@@ -7,7 +7,7 @@ use std::io::BufReader;
 
 use serde_json::from_str;
 
-use api::database::database::*;
+use api::database::product::*;
 use api::product::product::Product;
 
 pub fn load_products_from_json_file(path: String) -> Vec<Product> {
@@ -33,9 +33,9 @@ async fn main() {
     println!("Found {:?} products in file", products.len());
 
     for product in products.iter() {
-        let _ = insert_or_overwrite_product(product).await;
+        let _ = insert_or_overwrite_product(None, product).await;
     }
 
-    let products = list_products().await.unwrap_or(vec![]);
+    let products = list_products(None).await.unwrap_or(vec![]);
     println!("Read back {:?} products", products.len());
 }

@@ -1,28 +1,52 @@
+use warp::{http::Method, Filter};
+
+mod database;
 mod product;
 
-use std::env;
-
-use warp::Filter;
-
-use product::product::{ProductCache};
-use product::service::products_filter;
-
-
+use crate::database::database::get_client;
+use crate::product::service as products;
 
 #[tokio::main]
 async fn main() {
-    println!("Hello, world!");
+    let api_base = "api";
 
-    let cache = ProductCache::new_from_file(
-        env::var("PRODUCT_FILE")
-        .expect("Define PRODUCT_FILE")
-    );
+    let cors = warp::cors()
+        .allow_any_origin()
+        .allow_header("content-type")
+        .allow_methods(&[Method::PUT, Method::DELETE, Method::GET, Method::POST]);
 
-    let hello = warp::path("hello")
-            .map(|| format!("Hello, World!"));
-    
-    let apis = hello.or(products_filter(cache));
+    let client = match get_client().await {
+        Ok(client) => client,
+        Err(_) => panic!("failed to connect to the database"),
+    };
+    let client_filter = warp::any().map(move || client.clone());
 
-    warp::serve(apis).run(([127, 0, 0, 1], 5000)).await;
+    let list_products = warp::get()
+        .and(warp::path(api_base))
+        .and(warp::path("products"))
+        .and(warp::path::end())
+        .and(client_filter.clone())
+        .and_then(products::list_products);
+
+    let get_product = warp::get()
+        .and(warp::path(api_base))
+        .and(warp::path("products"))
+        .and(warp::path::param::<u32>())
+        .and(warp::path::end())
+        .and(client_filter.clone())
+        .and_then(products::get_product);
+
+    let create_product = warp::post()
+        .and(warp::path(api_base))
+        .and(warp::path("products"))
+        .and(warp::path::end())
+        .and(client_filter.clone())
+        .and(warp::body::json())
+        .and_then(products::create_or_update_product);
+
+    let products_api = list_products.or(get_product).or(create_product);
+
+    let routes = products_api.with(cors);
+
+    warp::serve(routes).run(([127, 0, 0, 1], 5000)).await;
 }
- 
