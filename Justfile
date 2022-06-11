@@ -27,3 +27,6 @@ build-api:
 
 run-api: build-api
     cargo run --manifest-path ./api/Cargo.toml --bin api
+
+watch-api:
+    cargo watch -C ./api/ -x 'run --bin api'
