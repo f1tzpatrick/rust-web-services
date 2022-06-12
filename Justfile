@@ -43,3 +43,6 @@ start-function: configure-function
 
 build-function:
     cargo build --manifest-path api/Cargo.toml --bin api --release --target=x86_64-unknown-linux-musl
+
+serve-frontend:
+    trunk serve --open ./frontend/Cargo.toml

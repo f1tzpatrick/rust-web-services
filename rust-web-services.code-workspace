@@ -10,7 +10,7 @@
 	"settings": {
 		"workbench.colorTheme": "Goldfish (rainglow)",
 		"rust-analyzer.linkedProjects": [
-			"./api/Cargo.toml"
+			"./Cargo.toml"
 		],
 		"rust-analyzer.completion.autoimport.enable": true,
 		"editor.inlayHints.enabled": "off"
