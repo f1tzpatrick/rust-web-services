@@ -1,20 +1,26 @@
 
 # Use FUNCTION_HOST localhost:14142 or 
 
-@host = http://localhost:14142
+# Local
+# @host = http://localhost:14142
+# Function
 # @host = https://hwi-products.azurewebsites.net
-
+# APIM Endpoint
+@host = https://hello-world-industries.azure-api.net
 ### 
 
 GET {{host}}/api/products/
+Ocp-Apim-Subscription-Key: {{subscription_key}}
 
 ###
 
 GET {{host}}/api/products/5
+Ocp-Apim-Subscription-Key: {{subscription_key}}
 
 ###
 
 POST {{host}}/api/products
+Ocp-Apim-Subscription-Key: {{subscription_key}}
 content-type: application/json
 
 {
@@ -29,9 +35,11 @@ content-type: application/json
 
 ###
 
-GET {{host}}/api/products/191
+GET {{host}}/api/products/192
+Ocp-Apim-Subscription-Key: {{subscription_key}}
 
 ###
 
 DELETE {{host}}/api/products/191
+Ocp-Apim-Subscription-Key: {{subscription_key}}
 
