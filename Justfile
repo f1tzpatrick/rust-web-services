@@ -23,7 +23,7 @@ check-db:
 reset-db:
     sudo rm -rf infra/local-db/database-data
 
-init-db: reset-db stop-db start-db check-db
+init-db:
     cargo run --manifest-path api/Cargo.toml --bin init-db
 
 build-api:

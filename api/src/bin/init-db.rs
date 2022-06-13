@@ -5,6 +5,7 @@ use std::fs::File;
 use std::io::prelude::*;
 use std::io::BufReader;
 
+use api::database::database;
 use serde_json::from_str;
 
 use api::database::product::*;
@@ -28,12 +29,14 @@ fn read_products_file(path: String) -> String {
 
 #[tokio::main]
 async fn main() {
+    let client = database::get_client().await.unwrap();
+
     let products_file = env::var("PRODUCT_FILE").expect("Define PRODUCT_FILE");
     let products = load_products_from_json_file(products_file);
     println!("Found {:?} products in file", products.len());
 
     for product in products.iter() {
-        let _ = insert_or_overwrite_product(None, product).await;
+        let _ = insert_or_overwrite_product(Some(client.clone()), product).await;
     }
 
     let products = list_products(None).await.unwrap_or(vec![]);
