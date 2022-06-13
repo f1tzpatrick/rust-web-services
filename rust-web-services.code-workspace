@@ -13,6 +13,8 @@
 			"./api/Cargo.toml"
 		],
 		"rust-analyzer.completion.autoimport.enable": true,
-		"editor.inlayHints.enabled": "off"
+		"editor.inlayHints.enabled": "off",
+		"azureFunctions.deploySubpath": "products-api",
+		"azureFunctions.showDeploySubpathWarning": true,
 	}
 }

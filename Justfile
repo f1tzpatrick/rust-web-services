@@ -21,7 +21,7 @@ check-db:
     cargo run --manifest-path ./api/Cargo.toml --bin check-db
 
 reset-db:
-    rm -rf infra/local-db/database-data
+    sudo rm -rf infra/local-db/database-data
 
 init-db: reset-db stop-db start-db check-db
     cargo run --manifest-path api/Cargo.toml --bin init-db
@@ -35,11 +35,13 @@ run-api: build-api
 watch-api:
     cargo watch -C ./api/ -x 'run --bin api'
 
-configure-function:
-    cargo build --manifest-path ./api/Cargo.toml --release
-
-start-function: configure-function
-    func start --port {{ FUNCTIONS_CUSTOMHANDLER_PORT }} --custom
-
 build-function:
+    cargo build --manifest-path api/Cargo.toml --bin api
+    cp ./api/target/x86_64-unknown-linux-musl/release/api ./products-api/api
+
+build-function-prod:
     cargo build --manifest-path api/Cargo.toml --bin api --release --target=x86_64-unknown-linux-musl
+    cp ./api/target/x86_64-unknown-linux-musl/release/api ./products-api/api
+
+start-function: build-function
+    func start --port {{ FUNCTIONS_CUSTOMHANDLER_PORT }} --custom

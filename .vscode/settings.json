@@ -1,6 +1,6 @@
 {
     "go.inferGopath": false,
-    "azureFunctions.deploySubpath": "function",
+    "azureFunctions.deploySubpath": ".",
     "azureFunctions.projectLanguage": "Custom",
     "azureFunctions.projectRuntime": "~4"
 }

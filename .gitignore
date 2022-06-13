@@ -9,6 +9,8 @@ bin
 obj
 appsettings.json
 
+products-api/api
+
 # Azurite artifacts
 __blobstorage__
 __queuestorage__

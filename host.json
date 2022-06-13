@@ -14,9 +14,13 @@
   },
   "customHandler": {
     "description": {
-      "defaultExecutablePath": "./api/target/release/api",
+      "defaultExecutablePath": "./products-api/api",
+      "workingDirectory": "",
       "arguments": []
     },
     "enableForwardingHttpRequest": true
-  }
+  },
+  "functions": [
+    "products-api"
+  ]
 }
