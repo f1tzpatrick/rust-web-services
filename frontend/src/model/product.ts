@@ -1,20 +1,20 @@
 
 export class Product {
-    productId: string;
+    productId: number;
     manufacturer: string;
     sku: string;
     upc: string;
     pricePerUnit: string;
-    quantityOnHand: string;
+    quantityOnHand: number;
     productName: string;
 
     constructor(
-        productId: string,
+        productId: number,
         manufacturer: string,
         sku: string,
         upc: string,
         pricePerUnit: string,
-        quantityOnHand: string,
+        quantityOnHand: number,
         productName: string,
     ) {
         this.productId = productId;
@@ -26,3 +26,4 @@ export class Product {
         this.productName = productName;
     }
 }
+
