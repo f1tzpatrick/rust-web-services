@@ -1,7 +1,9 @@
 **/target/
 **/Cargo.lock
 *.log
-**/package-lock.json
+
+frontend/dist/
+frontend/package-lock.json
 
 infra/local-db/database-data
 

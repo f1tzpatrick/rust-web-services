@@ -2,6 +2,8 @@
     export let product
 </script>
 
-<h2>{product.productName}</h2>
-
-<p>${product.pricePerUnit}</p>
+<div class="flex p-4 m-1 bg-orange-200">
+    <h2>{product.productName} </h2>
+    
+    <p class="">${product.pricePerUnit}</p>
+</div>
