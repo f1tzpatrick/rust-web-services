@@ -1,0 +1,6 @@
+install:
+  npm install
+
+run-dev: install
+  npm run dev --open
+
