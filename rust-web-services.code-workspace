@@ -4,11 +4,20 @@
 			"path": "."
 		},
 		{
-			"path": "../go-web-services"
+			"path": "../teeeesst"
+		},
+		{
+			"path": "../svelte-realworld"
+		},
+		{
+			"path": "../tailwind-sandbox"
+		},
+		{
+			"path": "../tailwind-course-projects"
 		}
 	],
 	"settings": {
-		"workbench.colorTheme": "Goldfish (rainglow)",
+		"workbench.colorTheme": "Peacock (rainglow)",
 		"rust-analyzer.linkedProjects": [
 			"./api/Cargo.toml"
 		],
@@ -16,5 +25,6 @@
 		"editor.inlayHints.enabled": "off",
 		"azureFunctions.deploySubpath": "products-api",
 		"azureFunctions.showDeploySubpathWarning": true,
+		"liveServer.settings.multiRootWorkspaceName": "tailwind-sandbox",
 	}
 }
