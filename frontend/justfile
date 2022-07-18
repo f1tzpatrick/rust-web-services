@@ -1,8 +1,11 @@
+_default:
+  @just --list --unsorted
+
 install:
   npm install
 
 run-dev: install
-  npm run dev --open
+  npm run dev --open --host
 
 watch-css:
   npx tailwindcss -i ./src/app.css -o ./static/output.css --watch &
